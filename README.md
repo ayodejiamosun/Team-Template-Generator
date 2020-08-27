@@ -15,8 +15,15 @@ so that I have quick access to emails and GitHub profiles
 ```
 npm install
 ```
+```
+node app.js
+```
 
-## INSTALLATION
+## TEST
 ```
 npm test
 ```
+
+## DEMO
+
+<iframe src="https://drive.google.com/file/d/1tJrxGmGvdvT_i0iE3gzgO-A31xGPCOLw/preview" width="640" height="480"></iframe>
