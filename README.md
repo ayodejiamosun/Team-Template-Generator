@@ -26,4 +26,4 @@ npm test
 
 ## DEMO
 
-<iframe src="https://drive.google.com/file/d/1tJrxGmGvdvT_i0iE3gzgO-A31xGPCOLw/preview" width="640" height="480"></iframe>
+https://drive.google.com/file/d/1tJrxGmGvdvT_i0iE3gzgO-A31xGPCOLw/view
