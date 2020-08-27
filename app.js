@@ -33,3 +33,86 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+var employees = [];
+
+var id = 1;
+
+var questions = [
+  {
+    type: "list",
+    message: "What role does this employee have?",
+    name: "role",
+    choices: ["Engineer", "Intern", "Manager"],
+  },
+  {
+    type: "input",
+    message: "What is the employee's name?",
+    name: "name",
+  },
+  {
+    type: "input",
+    message: "What is the employee's email address?",
+    name: "email",
+  },
+  {
+    type: "input",
+    message: "What is the intern's school?",
+    name: "school",
+    when: (response) => response.role === "Intern",
+  },
+  {
+    type: "github",
+    message: "What is the engineer's github username?",
+    name: "github",
+    when: (response) => response.role === "Engineer",
+  },
+  {
+    type: "officeNumber",
+    message: "What is the manager's office phone number?",
+    name: "officeNumber",
+    when: (response) => response.role === "Manager",
+  },
+  {
+    type: "confirm",
+    message: "Do you want to input another employee?",
+    name: "repeat",
+    default: true,
+  },
+];
+
+function runInquirer(array) {
+  inquirer.prompt(array).then(function (response) {
+    switch(response.role) {
+      case "Engineer":
+        var newEngineer = new Engineer(response.name, id, response.email, response.github);
+        employees.push(newEngineer);
+        break;
+
+      case "Manager":
+        var newManager = new Manager(response.name, id, response.email, response.officeNumber);
+        employees.push(newManager);
+        break;
+
+      case "Intern":
+        var newIntern = new Intern(response.name, id, response.email, response.school);
+        employees.push(newIntern);
+        break;
+
+      default:
+        break;
+    }
+
+    if (response.repeat) {
+      id++;
+      runInquirer(questions);
+    } else {
+      fs.writeFile(outputPath, render(employees), (err) => {
+        if (err) throw err;
+        else console.log("Successfully created team page!")
+      })
+    }
+
+  });
+}
+
+runInquirer(questions);
